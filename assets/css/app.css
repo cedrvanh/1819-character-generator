@@ -1,5 +1,13 @@
 :root {
     --cell-color: lightgrey;
+    --cell-active-color: #141414;
+}
+
+.container {
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .grid {
@@ -21,4 +29,8 @@
     flex: 1;
     margin: 2px;
     background-color: var(--cell-color);
+}
+
+.cell.active {
+    background-color: var(--cell-active-color);
 }
