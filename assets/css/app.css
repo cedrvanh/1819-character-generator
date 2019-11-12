@@ -1,0 +1,24 @@
+:root {
+    --cell-color: lightgrey;
+}
+
+.grid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 640px;
+    height: 640px;;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.cell {
+    flex-wrap: wrap;
+    flex: 1;
+    margin: 2px;
+    background-color: var(--cell-color);
+}
