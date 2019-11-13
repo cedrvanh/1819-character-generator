@@ -7,7 +7,7 @@ const onLogin = async () => {
             // Set Unique User ID in LocalStorage
             setLocalStorageItem('uuid', res.user.uid);
             // Redirect to Home after succesful login
-            redirectToRoute('/');
+            redirectToRoute('/1819-character-generator/');
         })
         .catch(err => {
             console.log(err);
@@ -16,6 +16,7 @@ const onLogin = async () => {
 
 const redirectToRoute = (route) => {
     window.location.pathname = route;
+    console.log(window.location.pathname);
 }
 
 const setLocalStorageItem = (key, data) => {
@@ -35,11 +36,11 @@ firebase.auth().onAuthStateChanged(user => {
         const token = getLocalStorageItem('uuid');
         if(window.location.pathname == '/') {
             if(!token) {
-                redirectToRoute('/login.html')
+                redirectToRoute('/1819-character-generator/login.html')
             }
         }
     } else {
-        redirectToRoute('/login.html')
+        redirectToRoute('/1819-character-generator/login.html')
     }
 })
 
