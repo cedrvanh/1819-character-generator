@@ -1,13 +1,92 @@
 :root {
     --cell-color: lightgrey;
     --cell-active-color: #141414;
+    --primary-color: #17EAD9;
+    --secondary-color: #6078EA;
+    --danger-color: #F54EA2;
+    --background-color: #F5F6FA;
+    --primary-gradient: linear-gradient(90deg, rgba(23,234,217,1) 0%, rgba(96,120,234,1) 100%);
+    --secondary-gradient: linear-gradient(90deg, rgba(66,230,149,1) 0%, rgba(59,178,184,1) 100%);
+    --danger-gradient: linear-gradient(90deg, rgba(245,78,162,1) 0%, rgba(255,118,118,1) 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(245, 245, 245);
+    height: 100vh;
+}
+
+button, input {
+    outline: none;
+    border: none;
 }
 
 .container {
-    height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    grid-gap: 16px;
+    height: 100vh;
+}
+
+.characters-sidebar {
+    position: relative;
+    background-color: #FFF;
+    padding: 32px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+.characters-sidebar__heading {
+    margin-bottom: 32px;
+}
+
+.characters {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+}
+
+.character {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.character__name {
+    margin-top: 16px;
+}
+
+.block {
+    width: 100%;
+    height: 250px;
+    background-color: lightgrey;
+}
+
+.character-generator {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    background-color: var(--background-color);
+}
+
+.character-input__wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 32px 0;
+}
+
+.character-input__wrapper > input {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-top: 8px;
+    padding: 16px;
 }
 
 .grid {
@@ -15,7 +94,11 @@
     flex-direction: column;
     width: 100%;
     max-width: 640px;
-    height: 640px;;
+    height: 640px;
+}
+
+.grid--small {
+    height: 250px;
 }
 
 .row {
@@ -33,4 +116,42 @@
 
 .cell.active {
     background-color: var(--cell-active-color);
+}
+
+.character-generator .cell {
+    cursor: pointer;
+}
+
+.character-generator .cell:hover {
+    background-color: var(--cell-active-color);
+}
+
+.button-group {
+    width: 100%;
+    height: auto;
+    display: flex;
+    margin-top: 32px;
+}
+
+.button {
+    flex: 1;
+    padding: 12px 32px;
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.button.--primary {
+    background: var(--primary-gradient);
+}
+
+.button.--secondary {
+    background: var(--secondary-gradient);
+    margin-left: 16px;
+    margin-right: 16px;
+}
+
+.button.--danger {
+    background: var(--danger-gradient);
 }

@@ -9,8 +9,29 @@
 </head>
 <body>
     <main class="container">
-        <section class="grid"></section>
+        <section class="character-generator">
+            <div class="character-input__wrapper">
+                <label for="characterName">Give a name to your character</label>
+                <input type="text" id="characterName" />
+            </div>
+            <div class="grid"></div>
+            <div class="button-group">
+                <button class="button --primary" id="generateBtn">Generate</button>
+                <button class="button --secondary" id="saveBtn">Save</button>
+                <button class="button --danger" id="clearBtn">Clear</button>
+            </div>
+        </section>
+        <aside class="characters-sidebar">
+            <h1 class="characters-sidebar__heading">Saved Characters</h1>
+            <section class="characters">
+            </section>
+        </aside>
     </main>
 </body>
+<!-- Import Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-firestore.js"></script>
+<!-- Import JS files -->
+<script src="assets/js/firebase.js"></script>
 <script src="assets/js/app.js"></script>
 </html>
