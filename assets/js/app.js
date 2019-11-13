@@ -64,12 +64,14 @@ const generateSmallCharacterGrid = (character, container) => {
 
 const resetGrid = () => {
     const cells = document.querySelectorAll('.character-generator > .grid .cell');
-
+    let inputElement = document.querySelector('#characterName');
+    
     cells.forEach(cell => {
         if(cell.classList.contains('active')) {
             cell.classList.remove('active');
         }
     })
+    inputElement.value = '';
 }
 
 
@@ -156,6 +158,12 @@ const getCharacterName = () => {
     const inputValue = document.querySelector('#characterName').value;
     return inputValue;
 }
+
+const resetCharacterName = () => {
+    let inputElempent = document.querySelector('#characterName');
+    inputElempent.value = '';
+}
+
 
 const init = () => {
     generateGrid(size);
