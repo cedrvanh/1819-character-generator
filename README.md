@@ -1,5 +1,5 @@
 # Character Generator - Raspberry Pi
-Character Generator made for the course Web of Things
+Character Generator made for the course Web of Things [Live](https://cedrvanh.github.io/1819-character-generator/)
 
 Functionality: 
 - Authentication
@@ -9,7 +9,6 @@ Functionality:
 - Give a name to your characters
 
 Connect to a Raspberry Pi to loop through the saved characters while using the Web App
-[Live](https://cedrvanh.github.io/1819-character-generator/)
 
 ### Default user
 - user: test@example.com
