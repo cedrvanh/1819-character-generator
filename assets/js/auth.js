@@ -14,11 +14,6 @@ const onLogin = async () => {
         });
 }
 
-const onLogOut = () => {
-    removeLocalStorageItem('uuid');
-    redirectToRoute('/login.html');
-}
-
 const redirectToRoute = (route) => {
     window.location.pathname = route;
 }
