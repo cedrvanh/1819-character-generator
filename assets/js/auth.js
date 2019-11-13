@@ -34,6 +34,7 @@ firebase.auth().onAuthStateChanged(user => {
     if(user) {
         const token = getLocalStorageItem('uuid');
         if(window.location.pathname == '/1819-character-generator') {
+            console.log(token);
             if(!token) {
                 redirectToRoute('/1819-character-generator/login.html')
             }
