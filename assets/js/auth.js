@@ -7,7 +7,8 @@ const onLogin = async () => {
             // Set Unique User ID in LocalStorage
             setLocalStorageItem('uuid', res.user.uid);
             // Redirect to Home after succesful login
-            redirectToRoute('/');
+            // redirectToRoute('/');
+            console.log(window.location.pathname);
         })
         .catch(err => {
             console.log(err);
