@@ -1,13 +1,18 @@
 // Firestore Instance
 const db = firebase.firestore();
 const characterRef = db.collection('characters');
+const piRef = db.collection('pi');
 
+// Define variables
 const generateBtn = document.querySelector('#generateBtn');
 const saveBtn = document.querySelector('#saveBtn');
+const loopBtn = document.querySelector('#loopBtn');
 const clearBtn = document.querySelector('#clearBtn');
 const size = 8;
-const character = [];
+let character = [];
+let isLooping = false;
 
+// Generate main grid
 const generateGrid = (count) => {
     const container = document.querySelector('.character-generator > .grid');
 
@@ -24,6 +29,7 @@ const generateGrid = (count) => {
     }
 }
 
+// Generate small character grid
 const generateSmallCharacterGrid = (character, container) => {
     // Get bits in readable format
     const bits = JSON.parse(character.bitArray);
@@ -62,6 +68,7 @@ const generateSmallCharacterGrid = (character, container) => {
     container.appendChild(characterItem);
 }
 
+// Empties grid and resets input value
 const resetGrid = () => {
     const cells = document.querySelectorAll('.character-generator > .grid .cell');
     let inputElement = document.querySelector('#characterName');
@@ -74,7 +81,7 @@ const resetGrid = () => {
     inputElement.value = '';
 }
 
-
+// Generate symmetrical arcade character
 const generateRandomCharacter = () => {    
     const rows = document.querySelectorAll('.character-generator > .grid .row');
 
@@ -89,6 +96,22 @@ const generateRandomCharacter = () => {
     })
 }
 
+// Save character to Firestore
+const saveCharacter = () => {
+    const liveCharacter = getLiveCharacter();
+    character = liveCharacter;
+
+    // Save character to DB
+    saveToDatabase(characterRef, {
+        bitArray: JSON.stringify(character),
+        name: getCharacterName()
+    });
+
+    // Empties grid after saving character
+    resetGrid();
+}
+
+// Add listeners to cells when in Live Mode
 const liveMode = () => {
     const cells = document.querySelectorAll('.character-generator > .grid .cell');
     cells.forEach(cell => {
@@ -99,8 +122,10 @@ const liveMode = () => {
     })
 }
 
-const saveCharacter = () => {
+// Return bit array of displayed character
+const getLiveCharacter = () => {
     const rows = document.querySelectorAll('.character-generator > .grid .row');
+    const liveCharacter = [];
 
     // Iterate grid rows
     rows.forEach(row => {
@@ -117,25 +142,19 @@ const saveCharacter = () => {
         }
         
         // Push row data to character array
-        character.push(rowData);
+        liveCharacter.push(rowData);
     })
 
-    // Save character to DB
-    saveToDatabase(characterRef, {
-        bitArray: JSON.stringify(character),
-        name: getCharacterName()
-    });
-
-    // // Empties grid after saving character
-    resetGrid();
+    return liveCharacter;
 }
 
-
+// Return all saved characters
 const getCharacters = async () => {
     const collection = await characterRef.get();
     return collection.docs.map(doc => doc.data());
 }
 
+// Render all saved characters
 const renderCharacters = () => {
     const container = document.querySelector('.characters');
     container.innerHTML = '';
@@ -147,27 +166,71 @@ const renderCharacters = () => {
     })
 }
 
+// Loop through all saved characters and display on big grid
+const loopCharacters = () => {
+    const loopCharacters = []
+    isLooping = true;
+    
+    characterRef.get()
+        .then(doc => {
+            doc.forEach(character => {
+                const data = character.data();
+                loopCharacters.push(JSON.parse(data.bitArray))
+            })
+            
+            // Use setInterval so we can wait for it to finish
+            let counter = 0;
+            const i = setInterval(() => {
+                const container = document.querySelector('.character-generator > .grid');
+                container.innerHTML = "";
+                
+                for(let i = 0; i < size; i++) {
+                    const row  = document.createElement('div');
+                    row.classList.add('row');
+                    container.appendChild(row);
 
+                    for(let j = 0; j < size; j++) {
+                        const cell = document.createElement('div');
+                        cell.classList.add('cell');
+                        if(loopCharacters[counter][i][j]) {
+                            cell.classList.add('active');
+                        }
+                        row.appendChild(cell);
+                    }
+                }
+
+                counter++
+                if(counter === loopCharacters.length) {
+                    clearInterval(i);
+                    isLooping = false;
+                    piRef.doc('settings').update({
+                        isLooping: isLooping
+                    })
+                }
+            }, 1000);
+        })
+}
+
+// Save object to Firestore
 const saveToDatabase = (ref, obj) => {
     ref.add(obj).then(doc => {
         console.log(`Document with ID: ${doc.id} successfully created`);
     })
 }
 
+// Return character name input value
 const getCharacterName = () => {
     const inputValue = document.querySelector('#characterName').value;
     return inputValue;
 }
 
+// Reset character name input field 
 const resetCharacterName = () => {
     let inputElempent = document.querySelector('#characterName');
     inputElempent.value = '';
 }
 
-const loopCharactersOnGrid = () => {
-
-}
-
+// Init App
 const init = () => {
     generateGrid(size);
     generateRandomCharacter();
@@ -189,6 +252,16 @@ const init = () => {
         e.preventDefault();
         // Save character
         saveCharacter();
+    })
+
+    loopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Loop characters
+        loopCharacters();
+
+        piRef.doc('settings').update({
+            isLooping: isLooping
+        })
     })
 
     clearBtn.addEventListener('click', (e) => {

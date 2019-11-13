@@ -7,6 +7,7 @@
     --background-color: #F5F6FA;
     --primary-gradient: linear-gradient(90deg, rgba(23,234,217,1) 0%, rgba(96,120,234,1) 100%);
     --secondary-gradient: linear-gradient(90deg, rgba(66,230,149,1) 0%, rgba(59,178,184,1) 100%);
+    --tertiary-gradient: linear-gradient(90deg, rgba(98,39,116,1) 0%, rgba(197,51,100,1) 100%);
     --danger-gradient: linear-gradient(90deg, rgba(245,78,162,1) 0%, rgba(255,118,118,1) 100%);
 }
 
@@ -28,6 +29,35 @@ body {
 button, input {
     outline: none;
     border: none;
+}
+
+a {
+    text-decoration: none;
+    text-align: center;
+}
+
+.full-width {
+    max-width: 100%;
+    width: 100vw;
+    height: calc(100vh - 75px);
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin: 1.6rem 0;
+}
+
+.form-control {
+    background-color: rgba(200, 200, 200, 0.15);
+    margin-top: 16px;
+    padding: 16px;
 }
 
 .container {
@@ -149,6 +179,10 @@ button, input {
 
 .button.--secondary {
     background: var(--secondary-gradient);
+}
+
+.button.--tertiary {
+    background: var(--tertiary-gradient);
 }
 
 .button.--danger {
