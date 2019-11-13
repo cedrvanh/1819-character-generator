@@ -16,11 +16,11 @@ const onLogin = async () => {
 
 const onLogOut = () => {
     removeLocalStorageItem('uuid');
-    redirectToRoute('/1819-wot-domotica/login.html');
+    redirectToRoute('/login.html');
 }
 
 const redirectToRoute = (route) => {
-    window.location.href = route;
+    window.location.pathname = route;
 }
 
 const setLocalStorageItem = (key, data) => {
@@ -34,6 +34,19 @@ const getLocalStorageItem = (key) => {
 const removeLocalStorageItem = (key) => {
     window.localStorage.removeItem(key);
 }
+
+firebase.auth().onAuthStateChanged(user => {
+    if(user) {
+        const token = getLocalStorageItem('uuid');
+        if(window.location.pathname == '/') {
+            if(!token) {
+                redirectToRoute('/login.html')
+            }
+        }
+    } else {
+        redirectToRoute('/login.html')
+    }
+})
 
 const loginBtn = document.querySelector('#loginBtn');
 

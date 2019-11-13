@@ -57,6 +57,7 @@ def get_loop_status():
 
 while True:
     print(u'Running app...')
+    
     if get_loop_status():
         loop_characters()
         
