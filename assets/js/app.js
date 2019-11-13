@@ -164,6 +164,9 @@ const resetCharacterName = () => {
     inputElempent.value = '';
 }
 
+const loopCharactersOnGrid = () => {
+
+}
 
 const init = () => {
     generateGrid(size);

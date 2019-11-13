@@ -130,11 +130,12 @@ button, input {
     width: 100%;
     height: auto;
     display: flex;
+    justify-content: space-between;
     margin-top: 32px;
 }
 
 .button {
-    flex: 1;
+    width: 150px;
     padding: 12px 32px;
     color: white;
     font-size: 16px;
@@ -148,8 +149,6 @@ button, input {
 
 .button.--secondary {
     background: var(--secondary-gradient);
-    margin-left: 16px;
-    margin-right: 16px;
 }
 
 .button.--danger {
