@@ -31,18 +31,18 @@ const removeLocalStorageItem = (key) => {
     window.localStorage.removeItem(key);
 }
 
-firebase.auth().onAuthStateChanged(user => {
-    if(user) {
-        const token = getLocalStorageItem('uuid');
-        if(window.location.pathname == '/') {
-            if(!token) {
-                redirectToRoute('/1819-character-generator/login.html')
-            }
-        }
-    } else {
-        redirectToRoute('/1819-character-generator/login.html')
-    }
-})
+// firebase.auth().onAuthStateChanged(user => {
+//     if(user) {
+//         const token = getLocalStorageItem('uuid');
+//         if(window.location.pathname == '/') {
+//             if(!token) {
+//                 redirectToRoute('/1819-character-generator/login.html')
+//             }
+//         }
+//     } else {
+//         redirectToRoute('/1819-character-generator/login.html')
+//     }
+// })
 
 const loginBtn = document.querySelector('#loginBtn');
 
