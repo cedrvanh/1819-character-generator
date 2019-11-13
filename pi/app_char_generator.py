@@ -47,7 +47,16 @@ def loop_characters():
         pixels = json.loads(data['bitArray'])
 
         display_character(pixels)
-        time.sleep(2)
+        time.sleep(1)
+        sense.clear()
+
+def get_loop_status(): 
+    piRef = db.collection(u'pi').document(u'settings')
+    status = piRef.get().to_dict()
+    return status['isLooping']
 
 while True:
-    loop_characters()
+    print(u'Running app...')
+    if get_loop_status():
+        loop_characters()
+        
